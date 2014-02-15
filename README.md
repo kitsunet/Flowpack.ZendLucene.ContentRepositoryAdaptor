@@ -16,15 +16,15 @@ See the nodeindex:* commands on CLI for what you can do.
 
 generally a:
 
-./flow nodeindex:build
+  ./flow nodeindex:build
 
 will generate the full index. After repeated builds you might want to run:
 
-./flow nodeindex:optmize
+  ./flow nodeindex:optmize
 
 Finally to search the index you can use
 
-./flow nodeindex:find
+  ./flow nodeindex:find
 
 Currently there is no Helper yet to access the index in Neos, but that will follow next.
 Also I didn't find good settings for tokenizing some fields yet. So some things are not optimal yet.
