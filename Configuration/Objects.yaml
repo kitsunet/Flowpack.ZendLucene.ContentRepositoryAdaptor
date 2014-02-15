@@ -1,0 +1,9 @@
+Flowpack\ZendLucene\ContentRepositoryAdaptor\Command\NodeIndexCommandController:
+  properties:
+    indexClient:
+      object:
+        factoryObjectName: Flowpack\ZendLucene\Index\ClientFactory
+        factoryMethodName: create
+        arguments:
+          1:
+            value: typo3cr

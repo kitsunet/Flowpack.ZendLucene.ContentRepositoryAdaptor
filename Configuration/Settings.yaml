@@ -1,0 +1,65 @@
+Flowpack:
+  ZendLucene:
+    ContentRepositoryAdaptor:
+
+      defaultConfigurationPerType:
+        string:
+          mapping:
+            type: text
+          indexing: ${value}
+
+        boolean:
+          mapping:
+            type: keyword
+          indexing: ${value}
+
+        integer:
+          mapping:
+            type: keyword
+          indexing: ${value}
+
+        date:
+          mapping:
+            index: keyword
+          indexing: ${(value ? value.format('Y-m-d\TH:i:s') + 'Z' : null)}
+
+
+        'TYPO3\Media\Domain\Model\Video':
+          mapping: '' # deliberately don't map or index this
+          indexing: ''
+
+        'TYPO3\Media\Domain\Model\ImageVariant':
+          mapping: '' # deliberately don't map or index this
+          indexing: ''
+
+        'references':
+          mapping:
+            type: string # an array of strings, to be precise
+            index: keyword
+          indexing: ${ZendLucene.convertArrayOfNodesToArrayOfNodeIdentifiers(value)}
+
+        'reference':
+          mapping:
+            index: keyword
+          indexing: ${value.identifier}
+
+
+      # Default context objects that are available in Eel expressions
+      #
+      # New variables should be added with a package key prefix. Example:
+      #
+      #   defaultContext:
+      #     'MyPackage.String': 'MyPackage\Helper\StringHelper'
+      #
+      defaultContext:
+        String: 'TYPO3\Eel\Helper\StringHelper'
+        Array: 'TYPO3\Eel\Helper\ArrayHelper'
+        Date: 'TYPO3\Eel\Helper\DateHelper'
+        ZendLucene: 'Flowpack\ZendLucene\ContentRepositoryAdaptor\Eel\ZendLuceneHelper'
+
+
+TYPO3:
+  TypoScript:
+    # TODO: refactor DefaultContext to Eel
+    defaultContext:
+#      ElasticSearch: 'Flowpack\ElasticSearch\ContentRepositoryAdaptor\Eel\ElasticSearchHelper'

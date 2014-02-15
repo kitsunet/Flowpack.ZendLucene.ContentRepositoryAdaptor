@@ -1,0 +1,80 @@
+
+'TYPO3.Neos:Node': &node
+
+  properties:
+    '__persistenceObjectIdentifier':
+      zendLucene:
+        mapping:
+          index: keyword
+        indexing: ${persistenceObjectIdentifier}
+
+    '__identifier':
+      zendLucene:
+        mapping:
+          index: keyword
+        indexing: ${node.identifier}
+
+    '__workspace':
+      zendLucene:
+        mapping:
+          index: keyword
+        indexing: ${node.workspace.name}
+
+    '__path':
+      zendLucene:
+        mapping:
+          index: keyword
+        indexing: ${node.path}
+
+    '__parentPath':
+      zendLucene:
+        mapping:
+          index: unStored
+        indexing: ${ZendLucene.buildAllPathPrefixes(node.parentPath)}
+
+    '__sortIndex':
+      zendLucene:
+        mapping:
+          type: keyword
+        indexing: ${node.index}
+
+    '_removed':
+      zendLucene:
+        mapping: '' # deliberately don't map or index this
+        indexing: ''
+
+    '__type':
+      zendLucene:
+        mapping:
+          index: keyword
+        indexing: ${node.nodeType.name}
+    # we index the node type INCLUDING ALL SUPERTYPES
+    '__typeAndSupertypes':
+      zendLucene:
+        mapping:
+          index: keyword
+        indexing: ${ZendLucene.extractNodeTypeNamesAndSupertypes(node.nodeType)}
+
+'unstructured': *node
+
+'TYPO3.Neos:Hidable':
+  properties:
+    '_hidden':
+      zendLucene:
+        mapping:
+          type: keyword
+        indexing: ${node.isHidden()}
+
+'TYPO3.Neos:Timable':
+  properties:
+    '_hiddenBeforeDateTime':
+      zendLucene:
+        mapping:
+          type: keyword
+        indexing: ${(node.hiddenBeforeDateTime ? node.hiddenBeforeDateTime.format('Y-m-d\TH:i:s') + 'Z' : null)}
+
+    '_hiddenAfterDateTime':
+      zendLucene:
+        mapping:
+          type: keyword
+        indexing: ${(node.hiddenAfterDateTime ? node.hiddenAfterDateTime.format('Y-m-d\TH:i:s') + 'Z' : null)}
