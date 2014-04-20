@@ -1,5 +1,11 @@
-Flowpack.ZendLucene.ContentRepositoryAdaptor
+ZendLucene ContentRepositoryAdaptor
 ============================================
+
+Note
+----
+I probably won't develop this any further. For now the sqlite based SimpleSearch seems more efficient:
+https://github.com/kitsunet/Flowpack.SimpleSearch.ContentRepositoryAdaptor
+So that will get my attention. You should consider using that instead. I will keep this here for reference.
 
 Installation
 ------------
